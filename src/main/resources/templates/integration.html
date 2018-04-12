@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	th:include="defaultTemplate::full">
+
+	<div th:fragment="mainContent">
+	
+		<script th:src="@{/js/integration.js}"></script>
+	
+		<h3 th:text="#{RUN_INTEGRATION}"></h3>
+		
+		<button type="button" class="btn btn-primary" onclick="actionRunCommitIntegration();">
+			<span class="glyphicon glyphicon-ok-sign"  th:text="' ' + #{COMMITS}"></span>
+		</button>
+		
+		<br/>
+		<br/>
+		
+		<h3 th:text="#{LOG}"></h3>
+
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<textarea id="tfLog" class="form-control console" rows="20" th:text="${log}" style="font-size: 12px"></textarea>
+			</div>		
+		</div>	
+		
+		<button type="button" class="btn btn-primary" onclick="actionRefreshLog();">
+			<span class="glyphicon glyphicon-refresh"  th:text="' ' + #{REFRESH_LOG}"></span>
+		</button>
+		
+		<!-- integration started dialog -->
+		
+		<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="integrationStartedDialog">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" th:text="#{MSG_INTEGRATION_STARTED}"></h5>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="$('#integrationStartedDialog').modal('hide');">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div><!-- main content -->
+
+
+</html>

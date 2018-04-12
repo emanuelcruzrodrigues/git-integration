@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	th:include="defaultTemplate::full">
+
+	<div th:fragment="mainContent">
+	
+		<script th:src="@{/js/commit_list.js}"></script>
+	
+		<h3 th:text="#{COMMITS}"></h3>
+		
+		<form id="commitFilterFrm" name="commitFilterFrm" method="post" th:object="${filter}" th:action="@{/commit/list}">
+		
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="tfRepository" th:text="#{REPOSITORY} + ':'"></label> 
+					<input id="tfRepository" name="tfRepository" th:field="*{repository}" class="form-control form-control-sm" />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="tfBranch" th:text="#{BRANCH} + ':'"></label> 
+					<input id="tfBranch" name="tfBranch" th:field="*{branch}" class="form-control form-control-sm" />
+				</div>
+			</div>
+			
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="tfAuthor" th:text="#{AUTHOR} + ':'"></label> 
+					<input id="tfAuthor" name="tfAuthor" th:field="*{author}" class="form-control form-control-sm" />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="tfFileName" th:text="#{FILE_NAME} + ':'"></label> 
+					<input id="tfFileName" name="tfFileName" th:field="*{fileName}" class="form-control form-control-sm" />
+				</div>
+			</div>
+			
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="tfDescription" th:text="#{DESCRIPTION} + ':'"></label> 
+					<input id="tfDescription" name="tfDescription" th:field="*{description}" class="form-control form-control-sm" />
+				</div>
+			</div>
+			
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="tfStartDate" th:text="#{START_DATE} + ':'"></label> 
+					<input type="date" id="tfStartDate" name="tfStartDate" th:field="*{startDate}" class="form-control form-control-sm" />
+				</div>
+				<div class="form-group col-md-4">
+					<label for="tfFinalDate" th:text="#{FINAL_DATE} + ':'"></label> 
+					<input type="date" step="1" id="tfFinalDate" name="tfFinalDate" th:field="*{finalDate}" class="form-control form-control-sm" />
+				</div>
+				<div class="form-group col-md-4">
+					<label for="tfLimit" th:text="#{LIMIT} + ':'"></label> 
+					<input type="number" step="1" id="tfLimit" name="tfLimit" th:field="*{limit}" class="form-control form-control-sm" />
+				</div>
+			</div>
+			
+			<div class="form-row">
+			<div class="form-group col-md-4">
+					<button type="submit" class="btn btn-primary">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</div>
+			</div>
+			
+			
+		</form>
+		
+		<div class="table-responsive" th:if="*{commits} != null">
+			<table class="table table-hover table-condensed table-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th th:text="#{REPOSITORY}"></th>
+						<th th:text="#{BRANCH}"></th>
+						<th th:text="#{AUTHOR}"></th>
+						<th th:text="#{DESCRIPTION}"></th>
+						<th th:text="#{FILE}"></th>
+						<th th:text="#{INTEGRATION_TIME}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="commit : *{commits}">
+					    <tr class="clickable-row" style="cursor: pointer;" th:data-href="${commit.link}">
+					        <td th:text="${commit.repository}"></td>
+					        <td th:text="${commit.branch}"></td>
+					        <td th:text="${commit.author}"></td>
+					        <td th:text="${commit.description}"></td>
+					        <td>
+					        	<table th:if="${commit.files != null}">
+					        		<th:block th:each="file : ${commit.files}">
+					    				<tr>
+					    					<td th:text="${file.fileName + ' (' + file.fileStatus + ')'}"></td>
+					    				</tr>
+					        	</table>
+					        </td>
+					        <td th:text="${commit.getIntegrationTimeAsString(#locale)}"></td>
+					    </tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		
+	</div><!-- main content -->
+
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	th:include="defaultTemplate::full">
+
+	<div th:fragment="mainContent">
+	
+		<h3 th:text="#{REPOSITORIES}"></h3>
+
+		<div class="table-responsive" th:if="*{repositories} != null">
+			<table class="table table-hover table-condensed">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col" th:text="#{REPOSITORY}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="repository : *{repositories}">
+					    <tr>
+					        <td th:text="${repository.fileName}"></td>
+					    </tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		
+	</div><!-- main content -->
+
+
+</html>

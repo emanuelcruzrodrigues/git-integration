@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	th:include="defaultTemplate::full">
+
+	<div th:fragment="mainContent">
+	
+		<form id="configFrm" name="configFrm" method="post" th:object="${configuration}" th:action="@{/}">
+		
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="tfLanguage" th:text="#{LANGUAGE} + ':'"></label> 
+					<select name="language" th:field="*{language}" class="form-control custom-select form-control-sm">
+						<option 
+							th:each="l : ${T(com.git.integration.domain.LanguageEnum).values()}"
+							th:value="${l.value}" th:text="${l.meaning}">
+						</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-row">
+			<div class="form-group col-md-4">
+					<button type="submit" class="btn btn-primary">
+						<span class="glyphicon glyphicon-ok"></span>
+					</button>
+				</div>
+			</div>
+			
+			
+		</form>
+	
+		<h3 th:text="#{INTEGRATION_PROPERTIES}"></h3>
+
+		<div class="table-responsive">
+			<table class="table table-hover table-condensed">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col" th:text="#{PROPERTY}"></th>
+						<th scope="col" th:text="#{VALUE}"></th>
+					</tr>
+				</thead>
+				<tbody>
+				    <tr>
+				        <td th:text="#{REFRESH_EXPRESSION}"></td>
+				        <td th:text="${@environment.getProperty('refresh.expression')}"></td>
+				    </tr>
+				    <tr>
+				        <td th:text="#{REPOSITORIES_PATH}"></td>
+				        <td th:text="${@environment.getProperty('repositories.path')}"></td>
+				    </tr>
+				    <tr>
+				        <td th:text="'GitLab URL'"></td>
+				        <td th:text="${@environment.getProperty('gitlab.url')}"></td>
+				    </tr>
+				</tbody>
+			</table>
+		</div>
+		
+	</div><!-- main content -->
+
+
+</html>

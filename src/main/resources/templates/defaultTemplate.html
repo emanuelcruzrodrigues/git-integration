@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	th:fragment="full" >
+	
+	<head>
+		<meta charset="utf-8"/>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}"/>
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}"/>
+		
+		<!-- jquery -->
+		<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}"/>
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap-glyphicons/bdd2cbfba0/css/bootstrap-glyphicons.css}"/>
+		<script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+		
+		<!-- select2 @see: https://select2.org -->
+		<script th:src="@{/js/select2.min.js}"></script>
+		<link rel="stylesheet" th:href="@{/css/select2.min.css}" />
+		
+		<!-- default css -->
+		<link rel="stylesheet" th:href="@{/css/defaultTemplate.css}" />
+		
+		<!-- default js -->
+		<script th:src="@{/js/functions.js}"></script>
+		 
+		<title th:text="'Git Integration'"></title>
+		
+	</head>
+
+	<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="/">
+			<img src="/images/logo.png" height="50" alt="Git"/>
+		</a>
+		<button class="navbar-toggler" 
+			type="button" 
+			data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" 
+			aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			
+			<ul class="navbar-nav mr-auto">
+				
+				<li class="nav-item">
+					<a class="nav-link"	href="/" th:text="#{CONFIGURATION}"></a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link"	href="/repository/list" th:text="#{REPOSITORIES}"></a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link"	href="/branch/list" th:text="#{BRANCHES}"></a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link"	href="/commit/list" th:text="#{COMMITS}"></a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link"	href="/integration" th:text="#{INTEGRATIONS}"></a>
+				</li>
+				
+			</ul>
+
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="mainContent" th:include="this::mainContent"> </div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.filtered-combobox').select2();
+		});
+	</script>
+
+	<footer class="footer">
+		<div class="container text-center">
+			<span class="text-muted" th:text="${'Git Integration&#169; ' + @environment.getProperty('release')}"></span>
+		</div>
+	</footer>
+
+</body>
+	
+</html>
